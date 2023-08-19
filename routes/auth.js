@@ -24,7 +24,7 @@ router.get('ttvrewardavocado.pl/twitch-callback', (req, res) => {
 
     if (error) {
         // Użytkownik odmówił dostępu, więc możesz przekierować go z powrotem na /auth
-        res.redirect('/auth');
+        res.render('faliure', {title: " Auth fali"})
     } else if (code) {
         req.session.twitchCode = code;
         res.redirect('/home');
