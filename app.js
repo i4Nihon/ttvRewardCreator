@@ -6,7 +6,6 @@ const logger = require('morgan');
 const crypto = require('crypto');
 const  session = require('cookie-session')
 const passport = require("passport");
-const TwitchStrategy = require('passport-twitch').Strategy;
 
 const authRouter = require('./routes/auth');
 const addRewardRouter = require('./routes/addReward');
@@ -55,7 +54,7 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

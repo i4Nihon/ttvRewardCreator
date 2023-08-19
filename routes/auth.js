@@ -1,6 +1,4 @@
 var express = require('express');
-const passport = require("passport");
-const {Strategy: TwitchStrategy} = require("passport-twitch");
 var router = express.Router();
 
 router.get('/', (req, res) => {
