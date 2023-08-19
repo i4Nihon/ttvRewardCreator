@@ -9,19 +9,19 @@ router.get('/', (req, res) => {
         res.redirect('/auth');
     } else {
         // Użytkownik jest zautoryzowany, wygeneruj stronę home.hbs
-        res.render('/home');
+        res.redirect('/home');
     }
 });
 
 router.get('/auth', (req, res) => {
     if (!req.session.authenticated) {
-        res.redirect("https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=wa3pgtt6k8l4qerbyqhekmlj7h9cbu&redirect_uri=ttvrewardavocado.pl/twitch-callback&scope=channel%3Amanage%3Aredemptions");
+        res.redirect("https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=wa3pgtt6k8l4qerbyqhekmlj7h9cbu&redirect_uri=ttvrewardavocado.pl/twitch-callback&scope=channel:manage:redemptions");
     } else {
         res.redirect('/home');
     }
 });
 
-router.get('/twitch-callback', (req, res) => {
+router.get('ttvrewardavocado.pl/twitch-callback', (req, res) => {
     const {code, error} = req.query;
 
     if (error) {
