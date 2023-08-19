@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../stylesheets/xreward.css">
+  </head>
+
+
+  <body>
+    <body>
+    <div id="returnContainer">
+      <form action="/">
+        <button id="return">⇦</button>
+      </form>
+    </div>
+  <h1>Edit Your Reward</h1>
+
+      <p id="rewardTitle"></p>
+  <table id="bigTable">
+
+    <tr id="topRow" style="height: 50%;">
+      <th id="leftTop">
+        <table id="smallTable">
+          <tr>
+            <th>tytuł nagordy</th>
+            <th><input type="text" name="rewardTitle" id="rewardTitle"></th>
+          </tr>
+          <tr>
+            <th>kolor tła nagordy</th>
+            <th><input type="text" name="background_color" id="background_color"></th>
+          </tr>
+          <tr>
+            <th>Koszt nagrody</th>
+            <th><input type="number" name="rewardCost" id="rewardCost"></th>
+          </tr>
+        </table>
+
+      </th>
+
+      <th>
+        <p><input type="text" name="rewardDescription" id="rewardDescription" value="opis nagrody"></p>
+      </th>
+    </tr>
+
+
+    <tr id="middleRow" style="height: 25%;">
+      <th>
+
+    <div class="control-group">
+
+
+      <label class="control control-checkbox">
+        Czy nagorda jest zapauzowana
+           <input type="checkbox" name="is_paused" id="is_paused">
+        <div class="control_indicator"></div>
+      </label>
+
+      <label class="control control-checkbox">
+        Czy nagorda jest włączona
+           <input type="checkbox" name="is_enabled" id="is_enabled">
+        <div class="control_indicator"></div>
+      </label>
+
+      <label class="control control-checkbox">
+        Czy nagroda wymaga pisania w niej
+          <input type="checkbox" name="is_user_input_required" id="is_user_input_required">
+        <div class="control_indicator"></div>
+      </label>
+
+      <label class="control control-checkbox">
+        Czy są ograniczone użycia na stream
+        <input type="checkbox" name="is_max_per_stream_enabled" id="is_max_per_stream_enabled">
+        <div class="control_indicator"></div>
+      </label>
+
+
+
+      <label class="control control-checkbox">
+        Czy na nagrode jest cooldown
+        <input type="checkbox" name="is_global_cooldown_enabled" id="is_global_cooldown_enabled">
+        <div class="control_indicator"></div>
+      </label>
+
+
+    </div>
+      </th>
+
+      <th>
+
+        <table>
+          <tr>
+            <th>max użycia na stream </th>
+            <th><input type="number" name="max_per_stream" id="max_per_stream"></th>
+          </tr>
+          <tr>
+            <th>cooldown w sekundach</th>
+            <th><input type="number" name="global_cooldown_seconds" id="global_cooldown_seconds"></th>
+          </tr>
+        </table>
+      </th>
+    </tr>
+
+    <tr id="bottomRow" style="height: 25%;">
+
+      <th colspan="2"><input type="button" name="submitBtn" id="submitBtn" value="SUBMIT"></th>
+
+    </tr>
+  </table>
+  </body>
+</html>

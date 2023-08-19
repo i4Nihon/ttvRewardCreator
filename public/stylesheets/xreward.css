@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css?family=Damion|Muli:400,600');
+body{
+    font: 15px/24px 'Muli', sans-serif;
+    background: #363636;
+    text-align: center;
+}
+
+#returnContainer{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+#bigTable{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#topRow{
+    text-align: center;
+}
+#middleRow{
+    text-align: center;
+}
+
+#bottomRow{
+    align-items: center;
+    bottom: 10px;
+}
+#leftTop{
+    text-align: left;
+}
+label{
+    font: 15px/24px 'Muli', sans-serif;
+
+}
+
+input[type=text],
+input[type=number]{
+    font: 15px/24px 'Muli', sans-serif;
+    color: #000000;
+    width: 150px;
+    height: 35px;
+    background: #475651;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    border: 1px solid #333333;
+    border-radius: 2em;
+}
+
+
+#rewardDescription{
+    width: 300px;
+    height: 300px;
+}
+
+button{
+    font: 15px/24px 'Muli', sans-serif;
+    color: #000000;
+    background: #475651;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    border: 1px solid #333333;
+    border-radius: 2em;
+    width: 210px;
+    height: 70px;
+}
+
+#return{
+    height: 55px;
+    width: 55px;
+    font-size: 50px;
+}
+
+
+/*================*/
+
+.control {
+    text-align: left;
+    font-family: arial;
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 5px;
+    padding-top: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.control input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+.control_indicator {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: #475651;
+    border: 0px solid #000000;
+    border-radius: 5px;
+}
+.control:hover input ~ .control_indicator,
+.control input:focus ~ .control_indicator {
+    background: #a49e8b;
+}
+
+.control input:checked ~ .control_indicator {
+    background: #312031;
+}
+.control:hover input:not([disabled]):checked ~ .control_indicator,
+.control input:checked:focus ~ .control_indicator {
+    background: #312031;
+}
+.control input:disabled ~ .control_indicator {
+    background: #e6e6e6;
+    opacity: 0.6;
+    pointer-events: none;
+}
+.control_indicator:after {
+    box-sizing: unset;
+    content: '';
+    position: absolute;
+    display: none;
+}
+.control input:checked ~ .control_indicator:after {
+    display: block;
+}
+.control-checkbox .control_indicator:after {
+    left: 8px;
+    top: 4px;
+    width: 3px;
+    height: 8px;
+    border: solid #000000;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.control-checkbox input:disabled ~ .control_indicator:after {
+    border-color: #7b7b7b;
+}
+.control-checkbox .control_indicator::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-left: -1.3rem;
+    margin-top: -1.3rem;
+    background: #2aa1c0;
+    border-radius: 3rem;
+    opacity: 0.6;
+    z-index: 99999;
+    transform: scale(0);
+}
+@keyframes s-ripple {
+    0% {
+        transform: scale(0);
+    }
+    20% {
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+@keyframes s-ripple-dup {
+    0% {
+        transform: scale(0);
+    }
+    30% {
+        transform: scale(1);
+    }
+    60% {
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+.control-checkbox input + .control_indicator::before {
+    animation: s-ripple 250ms ease-out;
+}
+.control-checkbox input:checked + .control_indicator::before {
+    animation-name: s-ripple-dup;
+}
