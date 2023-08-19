@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 router.get('/', (req, res) => {
     if (!req.session.authenticated) {
@@ -24,7 +24,7 @@ router.get('ttvrewardavocado.pl/twitch-callback', (req, res) => {
 
     if (error) {
         // Użytkownik odmówił dostępu, więc możesz przekierować go z powrotem na /auth
-        res.render('faliure', {title: " Auth fali"})
+        res.render('failure', {title: " Auth fail", errorCode: error})
     } else if (code) {
         req.session.twitchCode = code;
         res.redirect('/home');
