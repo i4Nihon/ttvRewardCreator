@@ -4,7 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const crypto = require('crypto');
-const  session = require('express-session')
+const  session = require('cookie-session')
 const passport = require("passport");
 const TwitchStrategy = require('passport-twitch').Strategy;
 
