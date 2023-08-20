@@ -13,6 +13,7 @@ const editRewardRouter = require('./routes/editReward');
 const deleteRewardRouter = require('./routes/deleteReward');
 
 const app = express();
+const vhost = require('vhost')
 
 const secretKey = crypto.randomBytes(32).toString('hex');
 
@@ -20,8 +21,6 @@ const secretKey = crypto.randomBytes(32).toString('hex');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
-
 
 // Serializacja i deserializacja użytkownika (dla sesji)
 passport.serializeUser(function(user, done) {
@@ -46,6 +45,21 @@ app.use('/', authRouter);
 app.use('/addreward', addRewardRouter);
 app.use('/editreward', editRewardRouter);
 app.use('/deletereward', deleteRewardRouter);
+
+app.use(vhost('auth.ttvrewardavocado.pl', function handle (req, res){
+  const {code, error} = req.query;
+
+  if (error) {
+    // Użytkownik odmówił dostępu, więc możesz przekierować go z powrotem na /auth
+    res.render('failure', {title: " Auth fail", errorCode: error})
+  } else if (code) {
+    req.session.twitchCode = code;
+    res.redirect('/home');
+  } else {
+    // Obsługa innych przypadków
+    res.status(400).send('Nieprawidłowa odpowiedź Twitch.');
+  }
+}))
 
 
 // catch 404 and forward to error handler

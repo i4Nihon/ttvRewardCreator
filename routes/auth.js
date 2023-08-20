@@ -13,25 +13,14 @@ router.get('/', (req, res) => {
 
 router.get('/auth', (req, res) => {
     if (!req.session.authenticated) {
-        res.redirect("https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=wa3pgtt6k8l4qerbyqhekmlj7h9cbu&redirect_uri=ttvrewardavocado.pl/twitch-callback&scope=channel:manage:redemptions");
+        res.redirect("https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=wa3pgtt6k8l4qerbyqhekmlj7h9cbu&redirect_uri=auth.ttvrewardavocado.pl/&scope=channel:manage:redemptions");
     } else {
         res.redirect('/home');
     }
 });
 
 router.get('ttvrewardavocado.pl/twitch-callback', (req, res) => {
-    const {code, error} = req.query;
 
-    if (error) {
-        // Użytkownik odmówił dostępu, więc możesz przekierować go z powrotem na /auth
-        res.render('failure', {title: " Auth fail", errorCode: error})
-    } else if (code) {
-        req.session.twitchCode = code;
-        res.redirect('/home');
-    } else {
-        // Obsługa innych przypadków
-        res.status(400).send('Nieprawidłowa odpowiedź Twitch.');
-    }
 })
 
 router.get('/home', (req, res) => {
