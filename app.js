@@ -14,7 +14,6 @@ const deleteRewardRouter = require('./routes/deleteReward');
 const getTokenRouter = require('./routes/getToken');
 
 const app = express();
-const vhost = require('vhost')
 
 const secretKey = crypto.randomBytes(32).toString('hex');
 
@@ -46,22 +45,8 @@ app.use('/', authRouter);
 app.use('/addreward', addRewardRouter);
 app.use('/editreward', editRewardRouter);
 app.use('/deletereward', deleteRewardRouter);
-app.use('/getToken', getTokenRouter)
-
-app.use(vhost('auth.ttvrewardavocado.pl', function handle (req, res){
-  const {code, error} = req.query;
-
-  if (error) {
-    // Użytkownik odmówił dostępu, więc możesz przekierować go z powrotem na /auth
-    res.render('failure', {title: " Auth fail", errorCode: error})
-  } else if (code) {
-    req.session.twitchCode = code;
-    res.redirect('/getToken');
-  } else {
-    // Obsługa innych przypadków
-    res.status(400).send('Nieprawidłowa odpowiedź Twitch.');
-  }
-}))
+app.use('/gettoken', getTokenRouter)
+app.use('/gettoken/redirect', getTokenRouter)
 
 
 // catch 404 and forward to error handler
