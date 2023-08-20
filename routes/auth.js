@@ -19,18 +19,5 @@ router.get('/auth', (req, res) => {
     }
 });
 
-router.get('ttvrewardavocado.pl/twitch-callback', (req, res) => {
-
-})
-
-router.get('/home', (req, res) => {
-    if (req.session.authenticated) {
-        // Użytkownik jest zautoryzowany, wygeneruj stronę home.hbs
-        res.render('home');
-    } else {
-        // Użytkownik nie jest zautoryzowany, przekieruj go na /auth
-        res.redirect('/auth');
-    }
-});
 
 module.exports = router;

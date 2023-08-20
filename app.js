@@ -11,6 +11,7 @@ const authRouter = require('./routes/auth');
 const addRewardRouter = require('./routes/addReward');
 const editRewardRouter = require('./routes/editReward');
 const deleteRewardRouter = require('./routes/deleteReward');
+const getTokenRouter = require('./routes/getToken');
 
 const app = express();
 const vhost = require('vhost')
@@ -45,6 +46,7 @@ app.use('/', authRouter);
 app.use('/addreward', addRewardRouter);
 app.use('/editreward', editRewardRouter);
 app.use('/deletereward', deleteRewardRouter);
+app.use('/getToken', getTokenRouter)
 
 app.use(vhost('auth.ttvrewardavocado.pl', function handle (req, res){
   const {code, error} = req.query;
@@ -54,7 +56,7 @@ app.use(vhost('auth.ttvrewardavocado.pl', function handle (req, res){
     res.render('failure', {title: " Auth fail", errorCode: error})
   } else if (code) {
     req.session.twitchCode = code;
-    res.redirect('/home');
+    res.redirect('/getToken');
   } else {
     // Obsługa innych przypadków
     res.status(400).send('Nieprawidłowa odpowiedź Twitch.');
