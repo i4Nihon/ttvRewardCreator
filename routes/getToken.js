@@ -3,7 +3,7 @@ const router = express.Router();
 const { exec } = require("child_process");
 
 router.get('/getToken', (req, res) =>{
-    const curlPrompt = `curl -X POST client_id=wa3pgtt6k8l4qerbyqhekmlj7h9cbu&client_secret=887mma1eixqm6p6wbumhfhk30mgdd1&code=${req.session.twitchCode}&grant_type=authorization_code&redirect_uri=ttvrewardavocado.pl/redirect/`
+    const curlPrompt = `curl -X POST client_id=wa3pgtt6k8l4qerbyqhekmlj7h9cbu&client_secret=887mma1eixqm6p6wbumhfhk30mgdd1&code=${req.session.twitchCode}&grant_type=authorization_code&redirect_uri='ttvrewardavocado.pl/redirect/'`
     if (req.session.twitchCode){
         exec(curlPrompt, (error, stdout, stderr) =>{
             if (error) console.log(error)
