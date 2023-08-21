@@ -12,7 +12,11 @@ const addRewardRouter = require('./routes/addReward');
 const editRewardRouter = require('./routes/editReward');
 const deleteRewardRouter = require('./routes/deleteReward');
 const getTokenRouter = require('./routes/getToken');
-const config = require('./config');
+
+
+const configFile = require("./config");
+const config = Object.keys(configFile)
+
 
 const app = express();
 

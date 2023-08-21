@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const config = require("../config");
+const configFile = require("../config");
+const config = Object.keys(configFile)
 
 router.get('/home', (req, res) => {
     if (config.sessionAuthenticated) {

@@ -1,5 +1,6 @@
 const express = require('express');
-const config = require("../config");
+const configFile = require("../config");
+const config = Object.keys(configFile)
 const router = express.Router();
 require('dotenv').config()
 
@@ -15,7 +16,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/auth/', (req, res) => {
-
     if (!config.sessionAuthenticated) {
         res.redirect(`https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=${process.env.CLENT_ID}&redirect_uri='ttvrewardavocado.pl/auth/redirect/'&scope=channel:manage:redemptions`);
     } else {

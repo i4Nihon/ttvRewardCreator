@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { exec } = require("child_process");
-const config = require("../config");
+const configFile = require("../config");
+const config = Object.keys(configFile)
 require('dotenv').config()
 router.get('/getToken', (req, res) =>{
     const config = req.app.get('config')
