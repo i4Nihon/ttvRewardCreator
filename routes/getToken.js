@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { exec } = require("child_process");
+require('dotenv').config()
 router.get('/getToken', (req, res) =>{
     if (req.session.twitchCode){
-        const curlPromptToGetToken = `curl -X POST client_id=wa3pgtt6k8l4qerbyqhekmlj7h9cbu&client_secret=887mma1eixqm6p6wbumhfhk30mgdd1&code=${req.session.twitchCode}&grant_type=authorization_code&redirect_uri='ttvrewardavocado.pl/getToken/redirect/'`
+        const curlPromptToGetToken = `curl -X POST client_id=${process.env.CLENT_ID}&client_secret=${process.env.CLIENT_SECRET}&code=${req.session.twitchCode}&grant_type=authorization_code&redirect_uri='ttvrewardavocado.pl/getToken/redirect/'`
         exec(curlPromptToGetToken, (error, stdout, stderr) =>{
             if (error) console.log(error)
             if (stderr) console.log(stderr)
