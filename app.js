@@ -52,8 +52,6 @@ app.use('/addreward', addRewardRouter);
 app.use('/editreward', editRewardRouter);
 app.use('/deletereward', deleteRewardRouter);
 app.use('/gettoken', getTokenRouter)
-app.use('/gettoken/redirect', getTokenRouter)
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
