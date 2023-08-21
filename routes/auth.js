@@ -14,8 +14,7 @@ router.get('/', (req, res) => {
 
 router.get('/auth/', (req, res, next) => {
     if (!req.session.authenticated) {
-        res.redirect(`https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=${process.env.CLENT_ID}&redirect_uri='ttvrewardavocado.pl/auth/redirect/'&scope=channel manage redemptions`);
-        next()
+        res.redirect(`https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=${process.env.CLENT_ID}&redirect_uri='ttvrewardavocado.pl/auth/redirect/'&scope=channel:manage:redemptions`);
     } else {
         res.redirect('/home');
     }
