@@ -4,7 +4,7 @@ const { exec } = require("child_process");
 const configFile = require("../config");
 const config = Object.keys(configFile)
 require('dotenv').config()
-router.get('/', (req, res) =>{
+router.get('/getToken/', (req, res) =>{
     const config = req.app.get('config')
     if (req.query.twitchCode) {
 
