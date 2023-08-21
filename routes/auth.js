@@ -31,7 +31,7 @@ router.get('/auth/redirect', (req, res) => {
     if (req.query.code){
         config.ttvCode = req.query.code;
         config.sessionAuthenticated = true;
-        res.redirect('/gettoken/')
+        res.redirect('/gettoken')
     }
 })
 
