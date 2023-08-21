@@ -12,6 +12,7 @@ const addRewardRouter = require('./routes/addReward');
 const editRewardRouter = require('./routes/editReward');
 const deleteRewardRouter = require('./routes/deleteReward');
 const getTokenRouter = require('./routes/getToken');
+const config = require('./config');
 
 const app = express();
 
@@ -21,6 +22,7 @@ const secretKey = crypto.randomBytes(32).toString('hex');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+app.set('config', config);
 
 // Serializacja i deserializacja użytkownika (dla sesji)
 passport.serializeUser(function(user, done) {
