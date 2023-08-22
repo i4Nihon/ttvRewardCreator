@@ -20,7 +20,7 @@ router.get('/', (req, res) =>{
         })
 
 
-        const curlPromptToValidateToken = `curl -X GET https://id.twitch.tv/oauth2/validate -H Authorization: Bearer ${req.session.accessTokenNotValidate}`
+        const curlPromptToValidateToken = `curl -X GET https://id.twitch.tv/oauth2/validate -H "Authorization: Bearer ${req.session.accessTokenNotValidate}"`
         exec(curlPromptToValidateToken, (error, stdout, stderr) => {
             if (error) console.log(error)
             if (stderr) console.log(stderr)
