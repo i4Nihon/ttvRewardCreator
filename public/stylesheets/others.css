@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Damion|Muli:400,600');
+body{
+    font: 15px/24px 'Muli', sans-serif;
+    background: #363636;
+    text-align: center;
+    color: #e6e6e6;
+}

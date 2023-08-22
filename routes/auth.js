@@ -25,13 +25,12 @@ router.get('/auth/', (req, res) => {
 
 router.get('/auth/redirect', (req, res) => {
 
-    if (req.query.error){
-        res.render('faliure', {title: 'faliure', errorCode: req.query.error, errorDesc:req.query.error_description})
+    if (req.originalUrl.toString().includes('error')){
+        res.render('failure', {title: 'failure', errorCode: params.get('error'), errorDesc: params.get('error_description'), TryAgainUrl: process.env.TRY_AGAIN_URL})
     }
-    if (req.query.code){
-        config.ttvCode = req.query.code;
-        config.sessionAuthenticated = true;
-        res.redirect('/gettoken')
+    if (req.originalUrl.toString().includes('code')){
+        req.session.ttvCode = req.query.code
+        res.redirect('/token');
     }
 })
 

@@ -6,12 +6,13 @@ const logger = require('morgan');
 const crypto = require('crypto');
 const  session = require('cookie-session')
 const passport = require("passport");
+const favicon = require('serve-favicon')
 
 const authRouter = require('./routes/auth');
 const addRewardRouter = require('./routes/addReward');
 const editRewardRouter = require('./routes/editReward');
 const deleteRewardRouter = require('./routes/deleteReward');
-const getTokenRouter = require('./routes/getToken');
+const tokenRouter = require('./routes/token');
 
 
 const configFile = require("./config");
@@ -20,7 +21,7 @@ const config = Object.keys(configFile)
 
 const app = express();
 
-const secretKey = crypto.randomBytes(32).toString('hex');
+const secretKey = crypto.randomBytes(64).toString('hex');
 
 
 // view engine setup
@@ -42,6 +43,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')))
 
 app.use(session({ secret: secretKey, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
@@ -51,7 +53,7 @@ app.use('/', authRouter);
 app.use('/addreward', addRewardRouter);
 app.use('/editreward', editRewardRouter);
 app.use('/deletereward', deleteRewardRouter);
-app.use('/gettoken', getTokenRouter)
+app.use('/token', tokenRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
