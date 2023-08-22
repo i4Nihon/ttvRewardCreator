@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { exec } = require("child_process");
-const configFile = require("../config");
 require('dotenv').config()
 router.get('/', (req, res) =>{
     if (req.session.ttvCode) {
