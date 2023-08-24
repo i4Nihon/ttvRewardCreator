@@ -31,7 +31,6 @@ router.get( '/', (req, res) => {
         reqGetToken.on('error', (e) => {
             console.log("error:", e.message)
         })
-        reqGetToken.end()
 
         const optionsValidateToken = {
             hostname: "id.twitch.tv",
@@ -50,7 +49,6 @@ router.get( '/', (req, res) => {
         reqValidate.on('error', (e) => {
             console.log('error: ', e.message)
         })
-        reqValidate.end()
 
         if (status === 401){
             res.render('failure', {errorCode: "fail in getToken", title: "failure", TryAgainUrl: process.env.TRY_AGAIN_URL})
