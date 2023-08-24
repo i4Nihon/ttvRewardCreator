@@ -13,7 +13,7 @@ const addRewardRouter = require('./routes/addReward');
 const editRewardRouter = require('./routes/editReward');
 const deleteRewardRouter = require('./routes/deleteReward');
 const tokenRouter = require('./routes/token');
-
+const homeRouter = require('./routes/home')
 
 const configFile = require("./config");
 const config = Object.keys(configFile)
@@ -53,6 +53,7 @@ app.use('/', authRouter);
 app.use('/addreward', addRewardRouter);
 app.use('/editreward', editRewardRouter);
 app.use('/deletereward', deleteRewardRouter);
+app.use('/home', homeRouter)
 app.use('/token', tokenRouter)
 
 // catch 404 and forward to error handler
