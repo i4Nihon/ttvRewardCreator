@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
         res.render('home');
     } else {
         // Użytkownik nie jest zautoryzowany, przekieruj go na /auth
-        res.render('failure', {title: "Failure", errorCode: "you are not authorised", TryAgainUrl: process.env.TRY_AGAIN_URL})
+        res.render('failure', {title: "Failure", errorCode: "you are not authorised"})
     }
 });
 

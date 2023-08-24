@@ -17,7 +17,6 @@
     "morgan": "~1.9.1",
     "passport": "^0.6.0",
     "passport-twitch": "^1.0.3",
-    "request": "^2.88.2",
     "serve-favicon": "^2.5.0",
     "vhost": "^3.0.2"
   }

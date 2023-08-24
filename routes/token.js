@@ -10,14 +10,14 @@ router.get( '/', (req, res) => {
             hostname: 'id.twitch.tv',
             path: '/oauth2/token',
             method: 'POST',
-            body: {
-                client_id: process.env.CLENT_ID,
-                client_secret: process.env.CLIENT_SECRET,
-                code: req.session.ttvCode,
-                grant_type: "authorization_code",
-                redirect_uri: process.env.GET_TOKEN_REDIRECT
-            },
         }
+        const body = JSON.stringify({
+            client_id: process.env.CLENT_ID,
+            client_secret: process.env.CLIENT_SECRET,
+            code: req.session.ttvCode,
+            grant_type: "authorization_code",
+            redirect_uri: process.env.GET_TOKEN_REDIRECT
+        })
         const reqGetToken = https.request(optionsGetToken, (res) => {
             req.session.accessTokenNotValidate = res.headers.access_token
             req.session.refreshToken = res.headers.refresh_token
@@ -28,6 +28,7 @@ router.get( '/', (req, res) => {
                 console.log('No more data in response.');
             });
         })
+        reqGetToken.write(body)
         reqGetToken.on('error', (e) => {
             console.log("error:", e.message)
         })
@@ -40,7 +41,6 @@ router.get( '/', (req, res) => {
             headers: {
                 'Authorization': `Bearer ${req.session.accessTokenNotValidate}`
             },
-            timeout: 10000,
         }
         const reqValidate = https.get(optionsValidateToken, (res) => {
             status = res.statusCode
