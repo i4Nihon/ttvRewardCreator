@@ -54,7 +54,7 @@ router.get( '/', (req, res) => {
         reqValidate.end()
 
         if (status === 401){
-            res.render('failure', {errorCode: "fail in getToken", title: "failure", TryAgainUrl: process.env.TRY_AGAIN_URL})
+            res.render('failure', {errorCode: "fail in getToken", title: "failure"})
         }
         if (status === 200){
             req.session.accessToken = req.session.accessTokenNotValidate;
@@ -62,7 +62,7 @@ router.get( '/', (req, res) => {
          res.redirect('/token/redirect')
     }
     else {
-        res.render('failure', {errorCode: "fail in getToken", title: "failure", TryAgainUrl: process.env.TRY_AGAIN_URL})
+        res.render('failure', {errorCode: "fail in getToken", title: "failure"})
     }
 })
 

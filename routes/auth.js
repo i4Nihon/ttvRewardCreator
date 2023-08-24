@@ -26,7 +26,7 @@ router.get('/auth/', (req, res) => {
 router.get('/auth/redirect', (req, res) => {
 
     if (req.originalUrl.toString().includes('error')){
-        res.render('failure', {title: 'failure', errorCode: params.get('error'), errorDesc: params.get('error_description'), TryAgainUrl: process.env.TRY_AGAIN_URL})
+        res.render('failure', {title: 'failure', errorCode: params.get('error'), errorDesc: params.get('error_description')})
     }
     if (req.originalUrl.toString().includes('code')){
         req.session.ttvCode = req.query.code
