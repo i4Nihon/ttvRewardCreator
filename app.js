@@ -7,7 +7,6 @@ const crypto = require('crypto');
 const  session = require('cookie-session')
 const passport = require("passport");
 const favicon = require('serve-favicon')
-const vhost = require('vhost')
 
 const indexRouter = require('./routes/index')
 const authRouter = require('./routes/auth');
@@ -16,6 +15,7 @@ const editRewardRouter = require('./routes/editReward');
 const deleteRewardRouter = require('./routes/deleteReward');
 const tokenRouter = require('./routes/token');
 const homeRouter = require('./routes/home')
+const redirectRouter = require('./routes/redirect')
 
 const configFile = require("./config");
 const config = Object.keys(configFile)
@@ -56,7 +56,7 @@ app.use('/addreward', addRewardRouter);
 app.use('/editreward', editRewardRouter);
 app.use('/deletereward', deleteRewardRouter);
 app.use('/home', homeRouter)
-app.use(vhost('gettoken.ttvrewardavocado.pl', tokenRouter))
+app.use('/redirect', redirectRouter)
 app.use('/token', tokenRouter)
 
 
