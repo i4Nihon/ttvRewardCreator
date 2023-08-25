@@ -3,17 +3,6 @@ const router = express.Router();
 require('dotenv').config()
 
 router.get('/', (req, res) => {
-
-    if (req.session.sessionAuthenticated === true) {
-        // Użytkownik nie jest zautoryzowany, przekieruj go na /auth
-        res.redirect('/home');
-    } else {
-        // Użytkownik jest zautoryzowany, wygeneruj stronę home.hbs
-        res.redirect('/auth');
-    }
-});
-
-router.get('/auth/', (req, res) => {
     if (req.session.sessionAuthenticated === true) {
         res.redirect('/home');
     } else {
@@ -21,14 +10,13 @@ router.get('/auth/', (req, res) => {
     }
 });
 
-router.get('/auth/redirect', (req, res) => {
+router.get('/redirect', (req, res) => {
 
     if (req.originalUrl.toString().includes('error')){
         res.render('failure', {title: 'failure', errorCode: params.get('error'), errorDesc: params.get('error_description')})
     }
     if (req.originalUrl.toString().includes('code')){
         req.session.ttvCode = req.query.code
-        console.log(req.query.code)
         res.redirect('/token');
     }
 })
