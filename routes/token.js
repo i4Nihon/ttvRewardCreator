@@ -16,7 +16,7 @@ router.get( '/', (req, res) => {
                     client_secret: process.env.CLIENT_SECRET,
                     code: req.session.ttvCode,
                     grant_type: "authorization_code",
-                    redirect_uri: 'https://ttvrewardavocado.pl/token/redirect',
+                    redirect_uri: process.env.GET_TOKEN_REDIRECT,
                 }
             }
         fetch('https://id.twitch.tv/oauth2/token', bodyGetToken).then((responese) => {
@@ -85,10 +85,10 @@ router.get( '/', (req, res) => {
 
 
 router.get('/redirect', (req, res)=>{
-    if (req.session.sessionAuthenticated === false) {
-        res.render('failure', {title: "Failure", errorCode: "some err in /token/redirect", TryAgainUrl: process.env.TRY_AGAIN_URL})
-    } else {
+    if (req.session.sessionAuthenticated === true) {
         res.redirect('/home');
+    } else {
+        res.render('failure', {title: "Failure", errorCode: "some err in /token/redirect", TryAgainUrl: process.env.TRY_AGAIN_URL})
     }
 })
 
