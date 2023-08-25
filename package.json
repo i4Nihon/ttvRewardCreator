@@ -6,7 +6,6 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "child_process": "^1.0.2",
     "cookie-parser": "~1.4.4",
     "cookie-session": "^2.0.0",
     "crypto": "^1.0.1",
@@ -15,8 +14,8 @@
     "hbs": "^4.2.0",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+    "node-fetch": "^2.7.0",
     "passport": "^0.6.0",
-    "passport-twitch": "^1.0.3",
     "serve-favicon": "^2.5.0",
     "vhost": "^3.0.2"
   }

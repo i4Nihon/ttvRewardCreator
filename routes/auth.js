@@ -30,6 +30,7 @@ router.get('/auth/redirect', (req, res) => {
     }
     if (req.originalUrl.toString().includes('code')){
         req.session.ttvCode = req.query.code
+        console.log(req.query.code)
         res.redirect('/token');
     }
 })
