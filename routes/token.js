@@ -9,7 +9,6 @@ router.get( '/', (req, res) => {
     let accessTokenLocalVar;
     if (req.session.ttvCode) {
         const bodyGetToken =
-            // JSON.stringify(
             {
                 method: 'POST',
                 body: {
@@ -17,10 +16,9 @@ router.get( '/', (req, res) => {
                     client_secret: process.env.CLIENT_SECRET,
                     code: req.session.ttvCode,
                     grant_type: "authorization_code",
-                    redirect_uri: '/token/redirect',
+                    redirect_uri: 'https://ttvrewardavocado.pl/token/redirect',
                 }
             }
-        // )
         fetch('https://id.twitch.tv/oauth2/token', bodyGetToken).then((responese) => {
             req.session.accessTokenNotValidate = responese.accessToken
             accessTokenLocalVar = responese.accessToken

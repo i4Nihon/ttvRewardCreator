@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const configFile = require("../config");
-const config = Object.keys(configFile)
-
 router.get('/', (req, res) => {
-    if (config.sessionAuthenticated === true) {
+    if (req.session.sessionAuthenticated === true) {
         // Użytkownik jest zautoryzowany, wygeneruj stronę home.hbs
         res.render('home');
     } else {
