@@ -51,13 +51,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', indexRouter);
-app.use('/auth', authRouter);
+app.use('/auth/', authRouter);
 app.use('/addreward', addRewardRouter);
 app.use('/editreward', editRewardRouter);
 app.use('/deletereward', deleteRewardRouter);
 app.use('/home', homeRouter)
-app.use('/redirect', redirectRouter)
 app.use('/token', tokenRouter)
+app.use('/redirect', redirectRouter)
 
 
 // catch 404 and forward to error handler

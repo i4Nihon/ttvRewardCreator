@@ -2,14 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-
-  if (req.session.sessionAuthenticated === true) {
-    res.redirect('/home');
-  }
   const params = new  URLSearchParams(req.originalUrl)
-  if (params.has('code')) {
-    req.session.ttvCode = params.get('code')
+  if (params.has('/redirect?code')) {
+    req.session.ttvCode = params.get('/redirect?code')
     res.redirect('/token')
+  }
+  else if (req.session.sessionAuthenticated === true) {
+    res.redirect('/home');
   }
 
 })

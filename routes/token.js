@@ -3,23 +3,23 @@ const router = express.Router();
 const {exec} = require('child_process')
 require('dotenv').config()
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   let status;
   let accessTokenLocalVar;
 
   if (req.session.ttvCode) {
     const curlGetToken = `curl -X POST https://id.twitch.tv/oauth2/token -d "client_id=${process.env.CLENT_ID}&client_secret=${process.env.CLIENT_SECRET}&code=${req.session.ttvCode}&grant_type=authorization_code&redirect_uri=${process.env.REDIRECT}"`
-    exec(curlGetToken, (err, stdout, stderr) => {
+    await exec(curlGetToken, async (err, stdout, stderr) => {
       if (err) return console.log(err)
       else if (stderr) return console.log(stderr)
 
-      accessTokenLocalVar = stdout.accessToken
-      req.session.refreshToken = stdout.refreshToken
+      accessTokenLocalVar = await stdout.accessToken
+      req.session.refreshToken = await stdout.refreshToken
     })
 
     const curlValidate = `curl -X GET https://id.twitch.tv/oauth2/validate -H "Authorization: Bearer ${accessTokenLocalVar}"`
 
-    exec(curlValidate, (err, stdout, stderr) => {
+   await exec(curlValidate, (err, stdout, stderr) => {
       if (err) return console.log(err)
       else if (stderr) return console.log(stderr)
 
