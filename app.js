@@ -17,18 +17,16 @@ const tokenRouter = require('./routes/token');
 const homeRouter = require('./routes/home')
 const redirectRouter = require('./routes/redirect')
 
-const configFile = require("./config");
-const config = Object.keys(configFile)
-
 
 const app = express();
 
 const secretKey = crypto.randomBytes(64).toString('hex');
 
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-app.set('config', config);
 
 // Serializacja i deserializacja użytkownika (dla sesji)
 passport.serializeUser(function(user, done) {

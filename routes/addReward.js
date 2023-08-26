@@ -1,17 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const vars = require('../variables')
 
 router.get('/', (req, res) => {
-    if (!req.session.authenticated) {
-        // Użytkownik nie jest zautoryzowany, przekieruj go na /auth
-        res.redirect('/auth');
-    } else {
-        // Użytkownik jest zautoryzowany, wygeneruj stronę
+    if (vars.sessionAuthenticated) {
         res.render('addReward', { title: 'Dodaj' });
+    } else {
+        res.redirect('/auth');
     }
 });
 
-router.get('/addreward/commandOutput', function (req, res, next){
+router.get('/addreward/commandOutput', function (req, res){
 
     res.render('commandOutput', {title: 'cmdOut'})
 

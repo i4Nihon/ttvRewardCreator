@@ -1,38 +1,37 @@
 const express = require('express');
 const router = express.Router();
 const {exec} = require('child_process')
+const vars = require('../variables')
 require('dotenv').config()
 
 router.get('/', async (req, res) => {
-  let status;
-  let accessTokenLocalVar;
 
-  if (req.session.ttvCode) {
-    const curlGetToken = `curl -X POST https://id.twitch.tv/oauth2/token -d "client_id=${process.env.CLENT_ID}&client_secret=${process.env.CLIENT_SECRET}&code=${req.session.ttvCode}&grant_type=authorization_code&redirect_uri=${process.env.REDIRECT}"`
-    await exec(curlGetToken, async (err, stdout, stderr) => {
+  if (vars.ttvCode !== undefined) {
+    const curlGetToken = `curl -X POST -k https://id.twitch.tv/oauth2/token -d "client_id=${process.env.CLENT_ID}&client_secret=${process.env.CLIENT_SECRET}&code=${vars.ttvCode}&grant_type=authorization_code&redirect_uri=${process.env.REDIRECT}"`
+    await exec(curlGetToken, async (err, stdout) => {
       if (err) return console.log(err)
-      else if (stderr) return console.log(stderr)
 
-      accessTokenLocalVar = await stdout.accessToken
-      req.session.refreshToken = await stdout.refreshToken
+      const values1 = JSON.parse(stdout)
+      vars.refreshToken = values1.refresh_token
+
+      const curlValidate = `curl -X GET -k https://id.twitch.tv/oauth2/validate -H "Authorization: Bearer ${values1.access_token}"`
+      await exec(curlValidate, async (err2, stdout2) => {
+
+        if (err2) return console.log(err2)
+
+        const values2 = await JSON.parse(stdout2)
+        if (values2.login) {
+          vars.sessionAuthenticated = true
+          vars.accessToken = values1.access_token;
+          res.redirect('/redirect')
+
+        }
+        else if (values2.status === 401) {
+          res.render('failure', {errorCode: "fail in getToken", title: "failure", TryAgainUrl: process.env.TRY_AGAIN_URL})
+
+        }
+      })
     })
-
-    const curlValidate = `curl -X GET https://id.twitch.tv/oauth2/validate -H "Authorization: Bearer ${accessTokenLocalVar}"`
-
-   await exec(curlValidate, (err, stdout, stderr) => {
-      if (err) return console.log(err)
-      else if (stderr) return console.log(stderr)
-
-      status = stdout.status
-    })
-
-    if (status === 401) {
-      res.render('failure', {errorCode: "fail in getToken", title: "failure", TryAgainUrl: process.env.TRY_AGAIN_URL})
-    }
-    if (status === 200) {
-      req.session.accessToken = accessTokenLocalVar;
-      res.redirect('/redirect')
-    }
   } else {
     res.render('failure', {errorCode: "fail in getToken", title: "failure", TryAgainUrl: process.env.TRY_AGAIN_URL})
   }

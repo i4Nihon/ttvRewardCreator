@@ -1,13 +1,12 @@
 var express = require('express');
 var router = express.Router();
+const vars = require('../variables')
 
 router.get('/', (req, res) => {
-    if (!req.session.authenticated) {
-        // Użytkownik nie jest zautoryzowany, przekieruj go na /auth
-        res.redirect('/auth');
-    } else {
-        // Użytkownik jest zautoryzowany, wygeneruj stronę
+    if (vars.sessionAuthenticated) {
         res.render('editReward', { title: 'Edytuj' });
+    } else {
+        res.redirect('/auth');
     }
 });
 module.exports = router;

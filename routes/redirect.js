@@ -1,14 +1,19 @@
 const express = require('express');
 const router = express.Router();
+const vars = require('../variables')
+
 
 router.get('/', (req, res) => {
   const params = new  URLSearchParams(req.originalUrl)
   if (params.has('/redirect?code')) {
-    req.session.ttvCode = params.get('/redirect?code')
+    vars.ttvCode = params.get('/redirect?code')
     res.redirect('/token')
   }
-  else if (req.session.sessionAuthenticated === true) {
+  else if (vars.sessionAuthenticated === true) {
     res.redirect('/home');
+  }
+  else {
+    res.send("?????????????")
   }
 
 })
