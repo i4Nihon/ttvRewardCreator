@@ -3,12 +3,10 @@ const router = express.Router();
 const vars = require('../variables')
 
 router.get('/', (req, res) => {
-
+    res.render("index")
     if (vars.sessionAuthenticated === true) {
-        // Użytkownik nie jest zautoryzowany, przekieruj go na /auth
-        res.redirect('/home');
+        res.redirect('/rewards');
     } else {
-        // Użytkownik jest zautoryzowany, wygeneruj stronę home.hbs
         res.redirect('/auth');
     }
 });

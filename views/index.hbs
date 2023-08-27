@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../stylesheets/home.css">
+  </head>
+  <body>
+    <div id="container">
+      <h3>WYBIERZ SWOJĄ ROLE</h3>
+      <form>
+        <input id="streamerBtn" name="streamerBtn" type="button" onclick="askPermission()" value="Jestem tylko streamerem">
+        <input id="modBtn" name="modBtn" type="button" onclick="ifMod()" value="Jestem tylko moderatorem">
+        <input id="bothBtn" name="bothBtn" type="button" onclick="ifMod(), checkEditor()" value="Jestem tym i tym">
+        <label for="whichStreamer">Podaj nick streamra u którego jesteś modem</label>
+        <p id="ifError"></p>
+        <script>
+          const vars = require('../variables')
+          const names = require("../streamersNames.json")
+          const container = document.getElementById("container")
+          const ifEditor = require("../javascripts/IfEditor")
+          
+          function checkEditor(streamerName){
+            if (streamerName !== undefined) {
+              const status = ifEditor.check(streamerName)
+              if (status === "noSuchName") {
+                const ifError = document.getElementById("ifError")
+                ifError.innerText = "Błąd nie znaleziono nicku w bazie danych. Streamer musi być zarejstwoany w aplikacji."
+              }
+              else if (status === "nickFound"){
+                window.location.replace("/home")
+              }
+            }
+            else {
+              alert("PODAJ NICK")
+            }
+          }
+
+          function askPermission(){
+            window.location.replace("/auth")
+          }
+
+          function ifMod(){
+            let streamerTextInput = document.createElement('input')
+            streamerTextInput.id = "whichStreamer"
+            streamerTextInput.type = "text"
+            streamerTextInput.placeholder = "Nick..."
+            container.appendChild(streamerTextInput)
+
+            let submitInput = document.createElement("input")
+            submitInput.type = "button"
+            submitInput.value = "Potwierdź"
+            submitInput.onclick = askPermission(), checkEditor(document.getElementById("whichStreamer").value)
+            container.appendChild(submitInput)
+
+          }
+
+          function check(name) {
+            let nick;
+            for (const n in names) {
+              if (n === name)
+                return nick = n
+
+            }
+
+            if (nick === name){
+              vars.streamerNick = name
+              return "nickFound"
+            }
+            else if (nick === undefined){
+              return "noSuchName"
+            }
+          }
+
+        </script>
+
+
+      </form>
+    </div>
+  </body>
+
+</html>

@@ -1,5 +1,5 @@
 module.exports = {
-   sessionAuthenticated: false,
+   streamerNick: '',
    accessToken: '',
    accessTokenNotValidate: '',
    refreshToken: '',
