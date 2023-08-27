@@ -4,4 +4,5 @@ module.exports = {
    accessTokenNotValidate: '',
    refreshToken: '',
    ttvCode: '',
+   expiresIn: 0,
 }

@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
 
       const values1 = JSON.parse(stdout)
       vars.refreshToken = values1.refresh_token
+      vars.expiresIn = values1.expiers_in
 
       const curlValidate = `curl -X GET -k https://id.twitch.tv/oauth2/validate -H "Authorization: Bearer ${values1.access_token}"`
       await exec(curlValidate, async (err2, stdout2) => {
