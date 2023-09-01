@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="../stylesheets/home.css">
+    <script src="https://kit.fontawesome.com/d9c8897815.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <div id="container">
@@ -10,7 +11,7 @@
         <input id="streamerBtn" name="streamerBtn" type="button" onclick="askPermission()" value="Jestem tylko streamerem">
         <input id="modBtn" name="modBtn" type="button" onclick="ifMod()" value="Jestem tylko moderatorem">
         <input id="bothBtn" name="bothBtn" type="button" onclick="ifMod(), checkEditor()" value="Jestem tym i tym">
-        <label for="whichStreamer">Podaj nick streamra u którego jesteś modem</label>
+        <label for="whichStreamer">Podaj nick streamra u którego jesteś modem </label>
         <p id="ifError"></p>
         <script>
           const vars = require('../variables')
@@ -20,10 +21,10 @@
           
           function checkEditor(streamerName){
             if (streamerName !== undefined) {
-              const status = ifEditor.check(streamerName)
+              const status = check(streamerName)
               if (status === "noSuchName") {
                 const ifError = document.getElementById("ifError")
-                ifError.innerText = "Błąd nie znaleziono nicku w bazie danych. Streamer musi być zarejstwoany w aplikacji."
+                ifError.innerText = "Błąd nie znaleziono nicku w bazie danych. Streamer musi być zarejstrowany w aplikacji."
               }
               else if (status === "nickFound"){
                 window.location.replace("/home")
@@ -35,10 +36,13 @@
           }
 
           function askPermission(){
+            vars.mod = false;
             window.location.replace("/auth")
           }
 
           function ifMod(){
+            window.location.replace(`https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=${process.env.CLENT_ID}&redirect_uri=${process.env.REDIRECT}&scope=user%3Aread%3Aemail`)
+            vars.mod = true
             let streamerTextInput = document.createElement('input')
             streamerTextInput.id = "whichStreamer"
             streamerTextInput.type = "text"

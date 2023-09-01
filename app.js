@@ -9,6 +9,7 @@ const passport = require("passport");
 const favicon = require('serve-favicon')
 const vars = require("./variables")
 const {exec} = require("child_process")
+const streamerNames = require("./streamersNames.json")
 
 const indexRouter = require('./routes/index')
 const authRouter = require('./routes/auth');
@@ -61,25 +62,6 @@ app.use('/token', tokenRouter)
 app.use('/redirect', redirectRouter)
 
 
-const curlRefresh = `curl -k -X POST https://id.twitch.tv/oauth2/token -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=refresh_token&refresh_token=${vars.refreshToken}&client_id=${process.env.CLENT_ID}&client_secret=${process.env.CLIENT_SECRET}"`
-
-if (vars.expiresIn !== 0) {
-  setInterval(() => {
-    exec(curlRefresh, (error, stdout) => {
-      if (error) console.log(error)
-
-      const values = JSON.parse(stdout)
-
-      if (values.token_type !== undefined) {
-        vars.refreshToken = values.refresh_token
-        vars.accessToken = values.access_token
-        vars.expiresIn = values.expires_in
-        console.log("refresh successes")
-      } else if (values.status === 400) console.log(values.message)
-
-    })
-  }, ((expiresIn * 1000) - 15000))
-}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

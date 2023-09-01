@@ -1,8 +1,6 @@
 module.exports = {
-   streamerNick: '',
-   accessToken: '',
-   accessTokenNotValidate: '',
-   refreshToken: '',
+   mod: false,
+   streamerId: '',
+   editorName: '',
    ttvCode: '',
-   expiresIn: 0,
 }
